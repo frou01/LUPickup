@@ -14,8 +14,4 @@ public class LUP_RC_CatcherCollider : UdonSharpBehaviour
     [SerializeField] public bool Tags_ExcludeExceptMode;
     [SerializeField] public string[] ExceptPickupTags = new string[0];
     [SerializeField] public string[] CatcherTags = new string[0];
-    void Start()
-    {
-        
-    }
 }
