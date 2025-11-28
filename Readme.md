@@ -1,4 +1,4 @@
-# RigidBody Udon Railway
+# LateUpdatePickup
 ## 概要
 LateUpdatePickupは専ら車両内での使用を前提にLateUpdateと相対位置を用いて位置更新・同期を行うピックアップオブジェクトを追加するための物です。
 原案はSmartPickupSharp(SmartPickupSharp_Readme.txt参照)ですが、実装は大きく異なっています。
@@ -73,7 +73,7 @@ Scaleは必ず1,1,1で用いてください。
 |---:|:---|
 isHook|trueの場合、接触したPickupを手からもぎ取れるようになります。また、持たれていない状態のPickupに接触した際にも動作するようになります。<br>falseでは持たれていないPickupと接触しても何も起こりません。
 isSyncOwner|trueの場合、接触したPickupのOwnerを自身のOwnerで上書きします。
-dropTarget|設定しておくと、Catcher内でDropされたPickupが定位置に移動するようになります。dropTargetの子がある場合、子の内最も距離×角度が小さい物に移動します。
+dropTarget|設定しておくと、Catcher内でDropされたPickupが定位置に移動するようになります。dropTargetの子がある場合、その中で最も[距離×角度]が小さい物に移動します。
 Tags_ExcludeExceptMode|falseではExceptCatcherTagsに含まれるタグを持つPickupを除外します。trueとするとExceptCatcherTagsに含まれるタグを持つPickupとのみ接触するようになります。
 ExceptPickupTags|除外/包含するタグ文字列です。
 CatcherTags|自身のタグです。
