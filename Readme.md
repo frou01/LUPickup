@@ -10,9 +10,7 @@ LateUpdatePickupは専ら車両内での使用を前提にLateUpdateと相対位
 	- [LUPickUpRC_RootChangeable](#lupickuprc_rootchangeable)
 	- [LUP_RC_CatcherCollider](#lup_rc_catchercollider)
 # ビルドプロセス
-参照を同期する必要からビルドプロセスにて全レール、列車を配列登録しています。
-
-他に連結器参照の自動設定や、走行用コンポーネントの設定値変更が今後増える可能性があります。
+参照を同期する必要からビルドプロセスにて全Catcherを配列登録しています。
 
 ## SPS_BuildProcess
 - 参照同期のためのリストや参照を作ります
