@@ -127,7 +127,8 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
                 }
                 if (catcherCollider.isSyncOwner && Networking.IsOwner(catcherCollider.gameObject))
                 {
-                    Networking.SetOwner(LocalPlayer, this.gameObject);
+                    if (pickedFlag && ownerPlayer != LocalPlayer) return;
+                    else Networking.SetOwner(LocalPlayer, this.gameObject);
                 }
                 else if (ownerPlayer != LocalPlayer)
                 {
