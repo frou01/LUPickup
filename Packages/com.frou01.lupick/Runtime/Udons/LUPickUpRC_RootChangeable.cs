@@ -247,7 +247,7 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         //Debug.Log("ReplaceParent");
         crntCatcher = catcherCollider;
         TransformCache.parent = crntCatcher.transform;
-        if (crntCatcher.dropTarget)
+        if (crntCatcher.dropTarget && ownerPlayer == LocalPlayer)
         {
             moveToDropPoint();
         }
