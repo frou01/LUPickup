@@ -1,6 +1,7 @@
 ﻿
 using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.UdonNetworkCalling;
 using VRC.SDKBase;
 using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
@@ -17,6 +18,7 @@ public class SPSResetter : UdonSharpBehaviour
         this.Perform();
         SendCustomNetworkEvent(NetworkEventTarget.All, nameof(Perform));
     }
+    [NetworkCallable]
     public void Perform()
     {
         //target.gameObject.SetActive(true);
