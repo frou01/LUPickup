@@ -74,10 +74,10 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         base.onPickInit_OwnerOnly();
         if (crntCatcher)
         {
-            if (crntCatcher.isSyncOwner)
-            {
-                Networking.SetOwner(LocalPlayer, crntCatcher.gameObject);
-            }
+            //if (crntCatcher.isSyncOwner)
+            //{
+            //    Networking.SetOwner(LocalPlayer, crntCatcher.gameObject);
+            //}
             Collider[] catcherColliders = crntCatcher.GetComponents<Collider>();
             bool isEnable = false;
             foreach (Collider collider in catcherColliders)
