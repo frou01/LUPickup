@@ -74,10 +74,10 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         base.onPickInit_OwnerOnly();
         if (crntCatcher)
         {
-            if (crntCatcher.isSyncOwner)
-            {
-                Networking.SetOwner(LocalPlayer, crntCatcher.gameObject);
-            }
+            //if (crntCatcher.isSyncOwner)
+            //{
+            //    Networking.SetOwner(LocalPlayer, crntCatcher.gameObject);
+            //}
             Collider[] catcherColliders = crntCatcher.GetComponents<Collider>();
             bool isEnable = false;
             foreach (Collider collider in catcherColliders)
@@ -127,7 +127,8 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
                 }
                 if (catcherCollider.isSyncOwner && Networking.IsOwner(catcherCollider.gameObject))
                 {
-                    Networking.SetOwner(LocalPlayer, this.gameObject);
+                    if (pickedFlag && ownerPlayer != LocalPlayer) return;
+                    else Networking.SetOwner(LocalPlayer, this.gameObject);
                 }
                 else if (ownerPlayer != LocalPlayer)
                 {
@@ -247,7 +248,7 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         //Debug.Log("ReplaceParent");
         crntCatcher = catcherCollider;
         TransformCache.parent = crntCatcher.transform;
-        if (crntCatcher.dropTarget)
+        if (crntCatcher.dropTarget && ownerPlayer == LocalPlayer)
         {
             moveToDropPoint();
         }
