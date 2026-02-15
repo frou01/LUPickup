@@ -266,18 +266,19 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
     }
     protected void CalculateOffsetOnTransform(Transform parentTransform)
     {
-        if (parentTransform)
-        {
-            //Debug.Log("Debug COT InTransformBlock");
-            ObjectLocalPos = Quaternion.Inverse(parentTransform.rotation) * (TransformCache.position - parentTransform.position);
-            ObjectLocalRot = Quaternion.Inverse(parentTransform.rotation) * TransformCache.rotation;
-        }
-        else
-        {
-            //Debug.Log("Debug COT NullBlock");
-            ObjectLocalPos = TransformCache.localPosition;
-            ObjectLocalRot = TransformCache.localRotation;
-        }
+        if(isLocal || ownerPlayer == LocalPlayer)
+            if (parentTransform)
+            {
+                //Debug.Log("Debug COT InTransformBlock");
+                ObjectLocalPos = Quaternion.Inverse(parentTransform.rotation) * (TransformCache.position - parentTransform.position);
+                ObjectLocalRot = Quaternion.Inverse(parentTransform.rotation) * TransformCache.rotation;
+            }
+            else
+            {
+                //Debug.Log("Debug COT NullBlock");
+                ObjectLocalPos = TransformCache.localPosition;
+                ObjectLocalRot = TransformCache.localRotation;
+            }
     }
     public override void OnPickup()
     {
