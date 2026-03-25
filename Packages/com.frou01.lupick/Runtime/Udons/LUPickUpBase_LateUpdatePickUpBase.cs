@@ -119,6 +119,7 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
             {
                 //Debug.Log("onDropInit");
                 onDropInit_OwnerOnly();
+                RequestSerialization();
             }
             else if (dropFlag)
             {
@@ -174,11 +175,13 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
             {
                 //Debug.Log("onPickInit");
                 onPickInit_OwnerOnly();
+                RequestSerialization();
             }
             MoveObjectByTrackingData();
         }
         else
         {
+            //Debug.Log("LUPickUpBase_LateUpdatePickUpBase debug onPicked OnRemote");
             MoveObjectByBone();
         }
         CalculateOffsetOnTransform(TransformCache.parent);
@@ -189,7 +192,6 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
         MoveObjectByOnTransformOffset(TransformCache.parent);
         CalculateOffsetOnTrackingData();
         CalculateOffsetOnBone();
-        RequestSerialization();
         if (!LocalPlayer.IsUserInVR()) SendCustomEventDelayedSeconds(nameof(DeskTopWalkAround), 2);
         pickInitFlag = false;
     }
@@ -199,7 +201,6 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
         FetchTrackingData(ownerPlayer);
         MoveObjectByTrackingData();
         CalculateOffsetOnTransform(TransformCache.parent);
-        RequestSerialization();
         dropInitFlag = false;
     }
     protected virtual void onDropped_OwnerOnly()
@@ -265,18 +266,19 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
     }
     protected void CalculateOffsetOnTransform(Transform parentTransform)
     {
-        if (parentTransform)
-        {
-            //Debug.Log("Debug COT InTransformBlock");
-            ObjectLocalPos = Quaternion.Inverse(parentTransform.rotation) * (TransformCache.position - parentTransform.position);
-            ObjectLocalRot = Quaternion.Inverse(parentTransform.rotation) * TransformCache.rotation;
-        }
-        else
-        {
-            //Debug.Log("Debug COT NullBlock");
-            ObjectLocalPos = TransformCache.localPosition;
-            ObjectLocalRot = TransformCache.localRotation;
-        }
+        if(isLocal || ownerPlayer == LocalPlayer)
+            if (parentTransform)
+            {
+                //Debug.Log("Debug COT InTransformBlock");
+                ObjectLocalPos = Quaternion.Inverse(parentTransform.rotation) * (TransformCache.position - parentTransform.position);
+                ObjectLocalRot = Quaternion.Inverse(parentTransform.rotation) * TransformCache.rotation;
+            }
+            else
+            {
+                //Debug.Log("Debug COT NullBlock");
+                ObjectLocalPos = TransformCache.localPosition;
+                ObjectLocalRot = TransformCache.localRotation;
+            }
     }
     public override void OnPickup()
     {
