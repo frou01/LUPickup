@@ -14,10 +14,12 @@ public class SPS_BuildProcess : IProcessSceneWithReport
     LUP_RC_ColliderManager RCCManager = null;
 
     List<LUP_RC_CatcherCollider> RCCatchers = new List<LUP_RC_CatcherCollider>();
+    List<LUPickUpRC_RootChangeable> RCPicks = new List<LUPickUpRC_RootChangeable>();
 
     public void OnProcessScene(Scene scene, BuildReport report)
     {
         RCCatchers.Clear();
+        RCPicks.Clear();
         RCCManager = null;
         foreach (GameObject obj in scene.GetRootGameObjects())
         {
@@ -30,49 +32,36 @@ public class SPS_BuildProcess : IProcessSceneWithReport
             go.AddUdonSharpComponent<LUP_RC_ColliderManager>();
             RCCManager = go.GetComponent<LUP_RC_ColliderManager>();
         }
+        int pickID = 0;
+        int catchID = 0;
         if (RCCManager != null)
         {
             foreach (GameObject obj in scene.GetRootGameObjects())
             {
-                if (obj.GetComponent<LUPickUpRC_RootChangeable>() != null)
+                LUPickUpRC_RootChangeable[] Picks = obj.GetComponentsInChildren<LUPickUpRC_RootChangeable>(true);
+                foreach (LUPickUpRC_RootChangeable pick in Picks)
                 {
-                    LUPickUpRC_RootChangeable LPRC = obj.GetComponent<LUPickUpRC_RootChangeable>();
-                    LPRC.RCCManager = RCCManager;
-                    //Debug.Log(LPRC);
+                    pick.RCCManager = RCCManager;
+                    pick.ID = pickID;
+                    RCPicks.Add(pick);
+                    pickID++;
                 }
-                if (obj.GetComponent<LUP_RC_CatcherCollider>() != null)
+                LUP_RC_CatcherCollider[] Catches = obj.GetComponentsInChildren<LUP_RC_CatcherCollider>(true);
+                foreach (LUP_RC_CatcherCollider catchcol in Catches)
                 {
-                    obj.GetComponent<LUP_RC_CatcherCollider>().ID = RCCatchers.Count;
-                    RCCatchers.Add(obj.GetComponent<LUP_RC_CatcherCollider>());
+                    catchcol.ID = catchID;
+                    RCCatchers.Add(catchcol);
+                    catchID++;
                 }
-                if(obj.transform.childCount > 0) searchChild(obj.transform);
             }
 
             RCCManager.RCCatchers = RCCatchers.ToArray();
+            RCCManager.RCPicks = RCPicks.ToArray();
             //Debug.Log(SPSCatchers.ToArray().Length);
             //Debug.Log(SPSCatchers[0].name);
         }
 
 
-    }
-
-    void searchChild(Transform transform)
-    {
-        for (int id = 0;id< transform.childCount;id++)
-        {
-            GameObject obj = transform.GetChild(id).gameObject;
-            if (obj.GetComponent<LUPickUpRC_RootChangeable>() != null)
-            {
-                LUPickUpRC_RootChangeable LPRC = obj.GetComponent<LUPickUpRC_RootChangeable>();
-                LPRC.RCCManager = RCCManager;
-            }
-            if (obj.GetComponent<LUP_RC_CatcherCollider>() != null)
-            {
-                obj.GetComponent<LUP_RC_CatcherCollider>().ID = RCCatchers.Count;
-                RCCatchers.Add(obj.GetComponent<LUP_RC_CatcherCollider>());
-            }
-            if (obj.transform.childCount > 0) searchChild(obj.transform);
-        }
     }
 
     public bool OnBuildRequested(VRCSDKRequestedBuildType requestedBuildType)

@@ -8,4 +8,5 @@ using VRC.Udon;
 public class LUP_RC_ColliderManager : UdonSharpBehaviour
 {
     public LUP_RC_CatcherCollider[] RCCatchers;
+    public LUPickUpRC_RootChangeable[] RCPicks;
 }
