@@ -6,7 +6,7 @@ using VRC.SDKBase;
 using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
 
-public class SPSResetter : UdonSharpBehaviour
+public class LUP_Resetter : UdonSharpBehaviour
 {
     [SerializeField] LUPickUpBase_LateUpdatePickUpBase target;
     [SerializeField] LUPickUpBase_LateUpdatePickUpBase[] targets;
