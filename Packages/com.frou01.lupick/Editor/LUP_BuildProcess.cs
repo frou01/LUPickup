@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UdonSharpEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -8,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRC.SDKBase.Editor.BuildPipeline;
 
-public class SPS_BuildProcess : IProcessSceneWithReport
+public class LUP_BuildProcess : IProcessSceneWithReport
 {
     public int callbackOrder => 0;
     LUP_RC_ColliderManager RCCManager = null;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
-  m_Name: SPSResetter Udon C# Program Asset
+  m_Name: LUP_Resetter
   m_EditorClassIdentifier: 
   serializedUdonProgramAsset: {fileID: 11400000, guid: 082e5956d6b764e4981f26f1e7d03d33, type: 2}
   udonAssembly: 
@@ -20,7 +20,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 1
-  scriptID: -1935619855477100574
+  scriptID: -6856111363127821579
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 

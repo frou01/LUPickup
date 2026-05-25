@@ -62,6 +62,9 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
     //V
     //Update
     float fromUsed = 10;
+    [Tooltip("set max interval to random-timing sync.")]
+    [SerializeField] int randomSyncMaxInterval = 3600;
+    int randomCounter;
 
     public virtual void Start()
     {
@@ -72,7 +75,10 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
         First_Pos = ObjectLocalPos = TransformCache.localPosition;
         First_Rot = ObjectLocalRot = TransformCache.localRotation;
         startFlag = true;
+        if(randomSyncMaxInterval <= 0) randomSyncMaxInterval = 3600;
+        randomCounter = UnityEngine.Random.Range(0, randomSyncMaxInterval);
     }
+
 
     public override void PostLateUpdate()
     {
@@ -126,8 +132,9 @@ public class LUPickUpBase_LateUpdatePickUpBase : UdonSharpBehaviour
                 //Debug.Log("onDropped");
                 onDropped_OwnerOnly();
             }
-            if (UnityEngine.Random.Range(0, 3600) < 1)
+            if (randomCounter-- < 1)
             {
+                randomCounter = UnityEngine.Random.Range(0, randomSyncMaxInterval);
                 //Debug.Log("Randam Sync");
                 RequestSerialization();
             }
