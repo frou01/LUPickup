@@ -124,7 +124,7 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         if (other)
         {
             LUP_RC_CatcherCollider catcherCollider = other.GetComponent<LUP_RC_CatcherCollider>();
-            if (catcherCollider && catcherCollider.isCatching())
+            if (catcherCollider && catcherCollider.validationPickup(this))
             {
                 if (!CheckTags(catcherCollider)) return;
                 if (catcherCollider == crntCatcher)

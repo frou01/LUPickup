@@ -18,7 +18,7 @@ public class LUP_RC_CatcherCollider : UdonSharpBehaviour
 
     DataList CatchedPickups = new DataList();
 
-    public virtual bool isCatching()
+    public virtual bool validationPickup(LUPickUpRC_RootChangeable pickup)
     {
         return true;
     }
