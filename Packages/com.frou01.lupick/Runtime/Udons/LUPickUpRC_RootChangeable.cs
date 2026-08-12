@@ -31,6 +31,11 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         }
         set
         {
+            if (crntCatcher != value)
+            {
+                if (crntCatcher) crntCatcher.PickupExit(this);
+                if (value) value.PickupEnter(this);
+            }
             m_crntCatcher = value;
             if (m_crntCatcher != null)
             {
@@ -247,10 +252,6 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
             return;
         }
         //Debug.Log("ReplaceParent");
-        if(crntCatcher != catcherCollider)
-        {
-            catcherCollider.PickupEnter(this);
-        }
         crntCatcher = catcherCollider;
         TransformCache.parent = crntCatcher.transform;
         if (crntCatcher.dropTarget && ownerPlayer == LocalPlayer)
@@ -309,10 +310,6 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
     {
         //Debug.Log("ResetParent");
         TransformCache.parent = null;
-        if (crntCatcher != null)
-        {
-            crntCatcher.PickupExit(this);
-        }
         crntCatcher = null;
         if (updateSyncingPos) CalculateOffsetOnTransform(TransformCache.parent);
     }
