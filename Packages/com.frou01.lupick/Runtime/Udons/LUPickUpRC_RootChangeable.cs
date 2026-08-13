@@ -202,6 +202,12 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
             }
         }
     }
+
+    public void ForceExitFromCollider()
+    {
+        crntCatcher = null;
+        StartExit();
+    }
     
     private void StartExit()
     {
