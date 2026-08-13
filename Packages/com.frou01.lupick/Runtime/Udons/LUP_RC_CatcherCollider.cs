@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Data;
@@ -16,7 +17,7 @@ public class LUP_RC_CatcherCollider : UdonSharpBehaviour
     [SerializeField] public string[] ExceptPickupTags = new string[0];
     [SerializeField] public string[] CatcherTags = new string[0];
 
-    DataList CatchedPickups = new DataList();
+    [NonSerialized] public DataList CatchedPickups = new DataList();
 
     public virtual bool validationPickup(LUPickUpRC_RootChangeable pickup)
     {
