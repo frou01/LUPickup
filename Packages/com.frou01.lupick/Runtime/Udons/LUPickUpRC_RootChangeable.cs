@@ -6,6 +6,7 @@ using VRC.Udon;
 
 public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
 {
+    public int ID;
     [UdonSynced] protected int crntCatcherID = -1;
     [UdonSynced] bool ExitWait_To_PickUp = false;//Issue collider check
     protected Collider[] colliders;
@@ -30,6 +31,11 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         }
         set
         {
+            if (crntCatcher != value)
+            {
+                if (crntCatcher) crntCatcher.PickupExit(this);
+                if (value) value.PickupEnter(this);
+            }
             m_crntCatcher = value;
             if (m_crntCatcher != null)
             {
@@ -118,7 +124,7 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
         if (other)
         {
             LUP_RC_CatcherCollider catcherCollider = other.GetComponent<LUP_RC_CatcherCollider>();
-            if (catcherCollider)
+            if (catcherCollider && catcherCollider.validationPickup(this))
             {
                 if (!CheckTags(catcherCollider)) return;
                 if (catcherCollider == crntCatcher)
@@ -195,6 +201,12 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
                 }
             }
         }
+    }
+
+    public void ForceExitFromCollider()
+    {
+        crntCatcher = null;
+        StartExit();
     }
     
     private void StartExit()
