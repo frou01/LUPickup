@@ -17,9 +17,11 @@ public class LUPickUpRC_RootChangeable : LUPickUpBase_LateUpdatePickUpBase
     public override void Start()
     {
         base.Start();
-        crntCatcher = GetComponentInParent<LUP_RC_CatcherCollider>();
+        if(crntCatcher == null)crntCatcher = GetComponentInParent<LUP_RC_CatcherCollider>();
         SetParentToCollider(crntCatcher);
         initialCatcherID = crntCatcherID;
+        First_Pos = ObjectLocalPos = TransformCache.localPosition;
+        First_Rot = ObjectLocalRot = TransformCache.localRotation;
         colliders = GetComponentsInChildren<Collider>();
     }
     private LUP_RC_CatcherCollider m_crntCatcher;
